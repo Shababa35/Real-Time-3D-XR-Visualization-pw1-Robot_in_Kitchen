@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 1 - Three.js Scene</title>
+  <style>
+    body { margin: 0; overflow: hidden; font-family: sans-serif; }
+    
+    /* Navigation Overlay */
+    .nav-overlay {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .nav-overlay a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .nav-overlay a:hover { color: #007bff; }
+  </style>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <div class="nav-overlay">
+    <a href="../index.html">← Back to Exercises</a>
+  </div>
+
+  <script type="module">
+    /* Make sure your JS file is named exactly 'Excercise_1.js' 
+       and is in the same 'exercise1' folder as this file.
+    */
+    import { createScene } from './Excercise_1.js';
+
+    try {
+      const { scene, camera, renderer } = createScene();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      // Handle window resizing to keep the scene looking good
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+    } catch (error) {
+      console.error("Failed to load Three.js scene:", error);
+    }
+  </script>
+</body>
+</html>
